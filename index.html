@@ -1,144 +1,329 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Added for proper scaling -->
-<link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Nitish Yadav</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nitish Yadav</title>
+  <meta name="description" content="Nitish Yadav — Ph.D Scholar, IIT Madras. Research in Automated Formal Verification, Distributed Systems, and Model Checking." />
+  <link rel="icon" href="home-button.png" />
+  <!-- Preload hero image so it arrives fast and crisp -->
+  <link rel="preload" as="image" href="IMG_0625.jpeg" />
+
+  <style>
+    :root{
+      /* Dark-first; light variant below */
+      --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
+      --border:#1f2a44; --accent:#8ab0ff; --accent-weak:#132647;
+      --shadow:0 16px 40px rgba(0,0,0,.35);
+      --r:16px; --rs:12px; --maxw:1100px;
+
+      --social-bg:#2a3f70;   /* same circle color for all icons */
+      --tooltip-bg:#111827;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f8fafc; --card:#ffffff; --text:#111827; --muted:#6b7280;
+        --border:#e5e7eb; --accent:#527bbd; --accent-weak:#e8effc;
+        --shadow:0 12px 28px rgba(0,0,0,.08);
+        --social-bg:#527bbd; --tooltip-bg:#111827;
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;line-height:1.55}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:var(--maxw);margin:0 auto;padding:16px}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.7);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    @media (prefers-color-scheme: light){ .nav{background:rgba(255,255,255,.75)} }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:12px;position:relative}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+    .menu{display:flex;gap:14px;align-items:center}
+    .menu a{padding:8px 12px;border-radius:10px}
+    .menu a[aria-current="page"]{background:var(--accent-weak);text-decoration:none}
+    .hamburger{display:none;background:none;border:1px solid var(--border);padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
+    .hamburger:focus-visible{outline:2px solid var(--accent)}
+    @media (max-width:760px){
+      .hamburger{display:block}
+      .menu{display:none}
+      .menu.open{display:block;position:absolute;right:16px;top:calc(100% + 8px);
+        width:min(260px, calc(100% - 32px));background:var(--card);border:1px solid var(--border);
+        border-radius:14px;box-shadow:var(--shadow);padding:6px;animation:menuIn .18s ease-out}
+      .menu a{display:block;width:100%;padding:12px;border-radius:10px}
+      .menu a:hover{background:var(--accent-weak);text-decoration:none}
+      .menu a + a{margin-top:2px}
+    }
+    @keyframes menuIn{from{opacity:0; transform:translateY(-6px) scale(.98)} to{opacity:1; transform:translateY(0) scale(1)}}
+
+    /* HERO */
+    .hero{margin-top:16px}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width:900px){ .hero-grid{grid-template-columns:1.2fr .8fr} }
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+    .card h2{margin:0 0 10px 0;font-size:20px}
+
+    /* Bio block */
+    .bio-head{display:flex;gap:16px;align-items:flex-start}
+
+    /* Slightly reduced portrait size (was 160/220) */
+    .photo{
+      width:150px;height:150px;border-radius:14px;overflow:hidden;border:1px solid var(--border);
+      flex:0 0 auto;background:#222
+    }
+    @media (min-width:900px){ .photo{width:200px;height:200px} }
+
+    .photo img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
+    .name{margin:0 0 6px 0;font-size:28px;line-height:1.1}
+    .role{margin:0 0 8px 0;font-weight:700}
+    .aff a{white-space:nowrap}
+    .meta{margin-top:8px}
+    .meta b{font-weight:700}
+
+    /* Social icons (SVG in circles) */
+    .social-icons{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .icon-btn{
+      position:relative; width:46px;height:46px;border-radius:999px;
+      background:var(--social-bg); color:#fff;
+      border:1px solid rgba(0,0,0,.25);
+      box-shadow:0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px rgba(255,255,255,.03);
+      display:inline-flex;align-items:center;justify-content:center;
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
+    .icon-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08)}
+    .icon-btn svg{width:22px;height:22px;fill:currentColor}
+    .icon-btn[data-tip]::after{
+      content:attr(data-tip);
+      position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);
+      background:var(--tooltip-bg);color:#fff;font-size:12px;line-height:1;
+      padding:6px 8px;border-radius:8px;white-space:nowrap;
+      opacity:0;pointer-events:none;transition:opacity .12s ease, transform .12s ease;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .icon-btn[data-tip]::before{
+      content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%) rotate(45deg);
+      width:10px;height:10px;background:var(--tooltip-bg);opacity:0;transition:opacity .12s ease;
+      border-left:1px solid rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.08);
+    }
+    .icon-btn:hover::after,.icon-btn:hover::before{opacity:1}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* NEWS & UPDATES */
+    .updates{position:relative;padding-top:56px}
+    .updates h2{
+      position:absolute; top:10px; left:12px;
+      margin:0; font-size:22px; font-weight:800; letter-spacing:.3px;
+      background:linear-gradient(180deg, #ff5a5a 0%, #ff2b2b 40%, #c90909 70%, #8a0303 100%);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+      text-shadow:0 0 18px rgba(255,35,35,.55), 0 2px 10px rgba(0,0,0,.45);
+      animation:toCenter 2.0s ease-out forwards; white-space:nowrap;
+    }
+    @keyframes toCenter{0%{left:12px;transform:translateX(0)}100%{left:50%;transform:translateX(-50%)}}
+
+    .news-viewport{
+      position:relative; height:220px; overflow:hidden;
+      border:1px solid var(--border); border-radius:12px; margin-top:8px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%, transparent 60%, rgba(0,0,0,0.03));
+    }
+    .news-track{position:absolute; left:0; right:0; display:flex; flex-direction:column; gap:10px; padding:12px 14px; animation:scrollUp 18s linear infinite; will-change:transform}
+    .news-list{display:flex;flex-direction:column;gap:10px}
+    .news-item{display:flex;gap:8px;align-items:flex-start}
+    .news-item .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px;flex:0 0 auto}
+    .news-item time{color:var(--muted);font-size:12px;margin-left:auto}
+    @keyframes scrollUp{0%{transform:translateY(100%)}100%{transform:translateY(-100%)}}
+    .news-viewport:hover .news-track{animation-play-state:paused}
+    @media (prefers-reduced-motion: reduce){
+      .updates h2{animation:none}
+      .news-track{position:static;animation:none}
+      .news-viewport{height:auto}
+    }
+
+    .stack{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+    footer{margin:24px 0;color:var(--muted);font-size:14px}
+  </style>
 </head>
 <body>
-<table summary="Table for page layout." id="tlayout">
-<tr valign="top">
-  <td id="layout-menu" style="vertical-align: top; height: 100vh; background-color: #f6f6f6;">
-    <div class="menu-item"><a href="index.html" class="current">Home</a></div>
-    <div class="menu-item"><a href="teaching.html">Teaching</a></div>
-    <div class="menu-item"><a href="publication.html">Publications</a></div>
-    <!--<div class="menu-item"><a href="research-projects.html">Fellowships/Projects</a></div>-->
-    <!--<div class="menu-item"><a href="awards.html">Awards</a></div>-->
-    <!--<div class="menu-item"><a href="professional-activities.html">Professional Activities</a></div>-->
-    <div class="menu-item"><a href="CV.pdf" target="_blank">CV</a></div>
-  </td>
-  <td id="layout-content">
-    <div id="toptitle">
-      <h1 style="color: #527bbd;">Nitish Yadav 
-      </h1>
+  <a href="#content" style="position:absolute;left:-1000px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
+
+  <!-- HEADER / NAV -->
+  <header class="nav" role="banner">
+    <div class="nav-inner container">
+      <div class="name">
+        <!--<img src="home-button.png" alt="Profile photo of Nitish Yadav" />-->
+        <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
+      </div>
+
+      <button class="hamburger" aria-label="Toggle menu" aria-controls="site-menu" aria-expanded="false">☰</button>
+
+      <nav id="site-menu" class="menu" aria-label="Main">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="teaching.html">Teaching</a>
+        <a href="publication.html">Publications</a>
+        <a href="CV.pdf" target="_blank" rel="noopener">CV</a>
+      </nav>
     </div>
-    <table class="imgtable">
-      <tr>
-        <!-- Profile Information -->
-        <td class="profile-img">
-          <img src="profilephoto.jpg" alt="Profile Picture" style="width: 10vw; height: auto;" />
-          
-        </td>
-        <td class="profile-info" align="left">
-          <p><b>Doctoral Research Scholar </b><br/>
-            <a href="https://pace.cse.iitm.ac.in/">PACE Lab</a> <br />
-            <a href="https://www.cse.iitm.ac.in/">Dept. of Computer Science & Engg.</a> <br />
-            <a href="https://www.iitm.ac.in/">IIT Madras </a> <br />
-            <!--<div style="margin-top: 0.5vw; display: flex;">
-              <b style="white-space: nowrap;">Address: </b>
-              <span>Lab- 6021, Disruptive Technologies Lab, Dept. of CSIS, BITS Pilani, Pilani Campus, Rajasthan, 333031</span>
-            </div>-->
-            <b>Email 1:</b> cs23d011@smail.iitm.ac.in <br/>
-            <b>Email 2:</b> cs23d011@cse.iitm.ac.in
-            <p style="margin-top: 0.5vw;">
-              <a href="https://scholar.google.com/citations?user=MtQL75IAAAAJ&hl=en">Google Scholar</a>, 
-              <a href="https://orcid.org/0009-0008-9802-3417">ORCID</a>, 
-              <a href="https://www.linkedin.com/in/nitishyadavny">Linkedin</a>, 
-              <a href="https://github.com/yadavnitishYN">Github</a>
-            </p>
-          </p>
-        </td>
-        <!-- News Section -->
-        <td class="news-section">
-          <h2 id="news-heading" class="news-motion">News & Updates</h2>
-          <marquee behavior="scroll" direction="up" scrollamount="3" style="height: 20vh; border: 1px solid #ddd; padding: 0.5vw;" onmouseover="this.stop();" onmouseout="this.start();">
-            <p>📌 <i>Will be updated soon... </i> </p>
-            <!--<p>📌 <i>[20.03.2025]: <a href="https://www.sciencedirect.com/science/article/pii/S0167739X25001128">High Speed Green IoV Framework:</a> Recent publication accepted at FGCS, Elsevier Journal </i> </p>
-        <p>📌 <i> Presented at <a href="https://ieeexplore.ieee.org/abstract/document/10588439">IEEE IV 2024</a>, Jeju, South Korea </i> </p>
-        <p>📌<i> [12.08.2024]: New paper <a href="https://ieeexplore.ieee.org/abstract/document/10588439">published</a> in IEEE Transactions on Consumer Electronics </i></p>-->
-          </marquee>
-        </td>
-      </tr>
-    </table>
+  </header>
 
-    <h2 style="margin-bottom: 0.3vw; margin-top: 0.5vw;">Research Interests</h2>
-    <p style="margin-bottom: 0;">Automated Formal Verification, Distributed Systems, Model Checking</p>
+  <main id="content" class="container" role="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <!-- Left: Brief Bio + Photo -->
+        <article class="card" aria-label="Brief bio">
+          <div class="bio-head">
+            <div class="photo">
+              <!-- High quality: eager load + high fetch priority + optional high-DPI srcset -->
+              <img
+                src="IMG_0625.jpeg"
+                srcset="IMG_0625.jpeg 1x, IMG_0625@2x.jpeg 2x"
+                alt="Portrait of Nitish Yadav"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                width="200" height="200" />
+            </div>
+            <div>
+              <h1 class="name">Nitish Yadav</h1>
+              <!--<p class="role">Ph.D Scholar</p>-->
+              <p class="aff">
+                Ph.D Scholar <br>
+                <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE Lab</a> <br>
+                <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Dept. of Computer Science &amp; Engg.</a> <br>
+                <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>
+              </p>
+              <div class="meta">
+                <div><b>Email 1:</b> <a href="mailto:cs23d011@smail.iitm.ac.in">cs23d011@smail.iitm.ac.in</a></div>
+                <div><b>Email 2:</b> <a href="mailto:cs23d011@cse.iitm.ac.in">cs23d011@cse.iitm.ac.in</a></div>
+              </div>
 
-    <h2 style="margin-top: 0.5vw;">Education</h2>
-    <ul style="margin-top: 0; padding-left: 0vw; list-style-position: inside;">
-      <li style="margin-bottom: 0.3vw;">
-        Ph.D, <a href="https://www.cse.iitm.ac.in/">Department of Computer Science & Engineering</a>, <a href="https://www.iitm.ac.in/">Indian institute of Technology Madras, Tamil Nadu</a>, 2023-Present
-      </li>
-      <li style="margin-bottom: 0.3vw;">
-        M.Tech (ICT) with specialization in Software Systems, <a href="https://www.daiict.ac.in">Dhirubhai Ambani Institute of Information and Communication Technology, Gujrat</a>, 2019-2021
-      </li>
-      <li style="margin-bottom: 0.3vw;">
-        B.Tech, Department of Computer Science and Engineering, <a href="https://jaipur.manipal.edu/">Manipal University Jaipur, Rajasthan</a>, 2014-2018
-      </li>
-    </ul>
+              <!-- SVG ICONS -->
+              <div class="social-icons" aria-label="External profiles">
+                <a class="icon-btn" href="https://scholar.google.com/citations?user=MtQL75IAAAAJ&hl=en"
+                   target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar" title="Google Scholar">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M2 9l10-4 10 4-10 4-10-4z"/>
+                    <path d="M7 12v3l5 2 5-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="sr-only">Google Scholar</span>
+                </a>
 
-    <h2 style="margin-top: 0.5vw;">Biography</h2>
-    <p style="text-align: justify;">
-    <strong>Nitish Yadav</strong> is a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/">Department of Computer Science and Engineering</a> at the <a href="https://www.iitm.ac.in/">Indian Institute of Technology Madras (IIT Madras)</a>. He is advised by <a href="https://kartiknagar.github.io/">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/">Dr. K. C. Sivaramakrishnan</a>, and is affiliated with the <a href="https://pace.cse.iitm.ac.in/">Programming Languages, Architecture and Compilers Education (PACE) group</a>. He joined the doctoral program in January 2023.</p>
-  </td>
-</tr>
-</table>
+                <a class="icon-btn" href="https://github.com/yadavnitishYN"
+                   target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub" title="GitHub">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 .5A11.5 11.5 0 0 0 .5 12 11.5 11.5 0 0 0 8.4 22.9c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1.1 1.5 1.1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2 .6 1.6.2 2.9.1 3.2 .8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.9v2.8c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
+                  </svg>
+                  <span class="sr-only">GitHub</span>
+                </a>
+
+                <a class="icon-btn" href="https://orcid.org/0009-0008-9802-3417"
+                   target="_blank" rel="noopener" aria-label="ORCID" data-tip="ORCID" title="ORCID">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="7.6" y="8" width="1.8" height="8" rx=".9" />
+                    <circle cx="8.5" cy="6.5" r="1" />
+                    <path d="M12.5 9.7h2.7a2.6 2.6 0 0 1 0 5.2h-2.7v-5.2zm1.8 1.6v2h.9a1 1 0 0 0 0-2h-.9z"/>
+                  </svg>
+                  <span class="sr-only">ORCID</span>
+                </a>
+
+                <a class="icon-btn" href="https://www.linkedin.com/in/nitishyadavny"
+                   target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn" title="LinkedIn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="7" y="10" width="2.2" height="7" rx="1.1"/>
+                    <circle cx="8.1" cy="7.3" r="1.3"/>
+                    <path d="M13.2 10h1.7a2.3 2.3 0 0 1 2.3 2.3V17h-2.1v-3.9c0-.8-.6-1.3-1.3-1.3s-1.3.5-1.3 1.3V17h-2.1v-7h2.8z"/>
+                  </svg>
+                  <span class="sr-only">LinkedIn</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right: News & Updates -->
+        <aside class="card updates" aria-label="News and updates">
+          <h2>News &amp; Updates</h2>
+
+          <div class="news-viewport" aria-live="polite">
+            <div class="news-track">
+              <div class="news-list">
+                <div class="news-item">
+                  <div class="dot" aria-hidden="true"></div>
+                  <div>Will be updated soon…</div>
+                </div>
+              </div>
+              <div class="news-list" aria-hidden="true">
+                <div class="news-item">
+                  <div class="dot" aria-hidden="true"></div>
+                  <div>Will be updated soon…</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ALWAYS VERTICAL BELOW -->
+    <section class="stack">
+      <article class="card">
+        <h2>Research Interests</h2>
+        <p>Automated Formal Verification, Distributed Systems, Model Checking</p>
+      </article>
+
+      <article class="card">
+        <h2>Education</h2>
+        <ul style="margin:0;padding-left:18px">
+          <li style="margin:8px 0">
+            <strong>Ph.D</strong>, <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a>,
+            <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">Indian Institute of Technology Madras</a>, 2023–Present
+          </li>
+          <li style="margin:8px 0">
+            <strong>M.Tech (ICT), Software Systems</strong>, <a href="https://www.daiict.ac.in" target="_blank" rel="noopener">Dhirubhai Ambani Institute of Information &amp Communication Technology</a>, 2019–2021
+          </li>
+          <li style="margin:8px 0">
+            <strong>B.Tech, Department of Computer Science &amp; Engineering</strong>, <a href="https://jaipur.manipal.edu/" target="_blank" rel="noopener">Manipal University Jaipur</a>, 2014–2018
+          </li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Biography</h2>
+        
+
+        <p style="text-align:justify">
+        I am a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a> at <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>. I am advised by <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/" target="_blank" rel="noopener">Dr. K. C. Sivaramakrishnan</a>, and I am affiliated with the <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE group</a>. I joined the Ph.D. program in January 2023.
+        </p>
+
+      </article>
+    </section>
+
+    <footer class="container" role="contentinfo">
+      Last updated: <span id="lu">—</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const btn  = document.querySelector('.hamburger');
+      const menu = document.getElementById('site-menu');
+
+      function closeMenu(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+      function toggleMenu(){ const isOpen = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', String(isOpen)); }
+      btn.addEventListener('click', toggleMenu);
+      menu.addEventListener('click', e => { if (e.target.tagName === 'A') closeMenu(); });
+      document.addEventListener('click', e => { if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); btn.focus(); } });
+
+      // Last updated stamp
+      const lu = document.getElementById('lu');
+      if (lu) lu.textContent = new Date().toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+    })();
+  </script>
 </body>
 </html>
-
-
-<!-- <style>
-  @keyframes slideMotion {
-    0% { transform: translateX(-20px); opacity: 0; }
-    50% { transform: translateX(10px); opacity: 0.8; }
-    100% { transform: translateX(0); opacity: 1; }
-  }
-
-  /* .news-motion {
-    color: #527bbd;
-    text-align: left;
-    margin-bottom: 8px;
-    margin-top: -10px;
-    color: red;
-    font-size: 24px;
-    font-weight: bold;
-    animation: slideMotion 2s ease-in-out infinite alternate;
-  } */
-
-  @keyframes glitter {
-  0% { text-shadow: 0 0 10px rgb(104, 140, 138), 0 0 20px rgb(124, 129, 112), 0 0 30px #ff0, 0 0 40px rgb(110, 94, 94); }
-  50% { text-shadow: 0 0 20px rgb(130, 10, 16), 0 0 30px rgb(230, 221, 221), 0 0 40px #ff0, 0 0 50px rgb(138, 131, 131); }
-  100% { text-shadow: 0 0 10px rgb(20, 20, 4), 0 0 20px rgb(127, 109, 109), 0 0 30px rgb(125, 125, 94), 0 0 40px rgb(145, 177, 186); }
-}
-
-.news-motion {
-    color: red;
-    text-align: left;
-    margin-bottom: 8px;
-    margin-top: -10px;
-    font-size: 24px;
-    font-weight: bold;
-    animation: glitter 0.5s infinite alternate, slideMotion 2s ease-in-out infinite alternate;
-}
-
-  
-
-  /* @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.news-motion {
-  color: #527bbd;
-  text-align: left;
-  margin-bottom: 15px;
-  color: red;
-  font-size: 24px;
-  font-weight: bold;
-  animation: blink 2s infinite;
-} */
-
-</style> -->
