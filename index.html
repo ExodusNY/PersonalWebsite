@@ -86,13 +86,14 @@
 
     /* Bio */
     .bio-head{display:flex;gap:16px;align-items:flex-start}
-    .photo{width:150px;height:150px;border-radius:14px;overflow:hidden;border:1px solid var(--border);flex:0 0 auto;background:#222}
-    @media (min-width:900px){ .photo{width:200px;height:200px} }
+    /* ↓↓↓ Smaller portrait: 120px on phones, 160px on laptops/desktops */
+    .photo{width:120px;height:120px;border-radius:14px;overflow:hidden;border:1px solid var(--border);flex:0 0 auto;background:#222}
+    @media (min-width:900px){ .photo{width:160px;height:160px} }
     .photo img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
     .display-name{margin:0 0 6px 0;font-size:28px;line-height:1.1}
     .aff a{white-space:nowrap}
 
-    /* Icon row (now below the bio block) */
+    /* Icon row (below the bio block) */
     .social-icons{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-start}
     @media (max-width:760px){ .social-icons{justify-content:center} }
     .icon-btn{position:relative;width:46px;height:46px;border-radius:999px;background:var(--social-bg);color:#fff;
@@ -146,7 +147,6 @@
 
   <!-- NAV -->
   <header class="nav" role="banner">
-    <!-- Same container => same left/right gutters as the cards -->
     <div class="container nav-inner">
       <div class="name">
         <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
@@ -172,13 +172,13 @@
         <article class="card" aria-label="Brief bio">
           <div class="bio-head">
             <div class="photo">
+              <!-- width/height updated to 160 to match desktop size -->
               <img src="IMG_0625.jpeg?v=1" alt="Portrait of Nitish Yadav"
-                   width="220" height="220" loading="eager" fetchpriority="high" decoding="async">
+                   width="160" height="160" loading="eager" fetchpriority="high" decoding="async">
             </div>
             <div>
               <h1 class="display-name">Nitish Yadav</h1>
-              <!--<p>Ph.D Scholar</p>-->
-              <p> 
+              <p>
                 Ph.D Scholar <br>
                 <strong>Affiliation:</strong> <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE Lab</a><br>
                 <strong>Dept. &amp; Inst.:</strong> <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Computer Science and Engineering</a>,
