@@ -5,21 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nitish Yadav</title>
   <meta name="description" content="Nitish Yadav — Doctoral Research Scholar, IIT Madras. Research in Automated Formal Verification, Distributed Systems, and Model Checking." />
-  <link rel="icon" href="profilephoto.jpg" />
+  <link rel="icon" href="home-button.png" />
+
   <!-- Preload hero image (cache-busted) -->
-  <link rel="preload" as="image" href="profilephoto6.png?v=2" fetchpriority="high" />
+  <link rel="preload" as="image" href="IMG_0625.jpeg?v=1" fetchpriority="high" />
 
   <style>
     :root{
-      /* Dark-first; light variant below */
       --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
       --border:#1f2a44; --accent:#8ab0ff; --accent-weak:#132647;
       --shadow:0 16px 40px rgba(0,0,0,.35);
       --r:16px; --maxw:1100px;
-
-      /* One gutter to rule them all (ensures consistent card width) */
       --gutter:16px;
-
       --social-bg:#2a3f70;
       --tooltip-bg:#111827;
     }
@@ -41,7 +38,6 @@
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* The container manages ALL horizontal padding so every card aligns */
     .container{
       max-width:var(--maxw);
       margin:0 auto;
@@ -59,15 +55,13 @@
     }
     @media (prefers-color-scheme: light){ .nav{background:rgba(255,255,255,.75)} }
     .nav-inner{
-      max-width:var(--maxw);
-      margin:0 auto;
+      max-width:var(--maxw); margin:0 auto;
       padding-left:max(var(--gutter), env(safe-area-inset-left));
       padding-right:max(var(--gutter), env(safe-area-inset-right));
       padding-top:10px; padding-bottom:10px;
       display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;
     }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-    .brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+    .name{font-weight:800;font-size:20px}
     .menu{display:flex;gap:14px;align-items:center}
     .menu a{padding:8px 12px;border-radius:10px}
     .menu a[aria-current="page"]{background:var(--accent-weak);text-decoration:none}
@@ -93,18 +87,14 @@
       border-radius:var(--r);
       box-shadow:var(--shadow);
       padding:18px;
-      width:100%; /* enforce same width for all cards */
+      width:100%;
     }
     .card h2{margin:0 0 10px 0;font-size:20px}
 
-    /* A single vertical flow that contains EVERYTHING below the nav.
-       Each child is either a card or a grid that contains cards. */
     .flow{display:grid;grid-auto-rows:auto;row-gap:16px}
 
-    /* HERO grid (cards inside still get width:100%) */
-    .hero-grid{
-      display:grid;grid-template-columns:1fr;gap:16px;width:100%;
-    }
+    /* HERO grid */
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:16px;width:100%}
     @media (min-width:900px){ .hero-grid{grid-template-columns:1.2fr .8fr} }
 
     /* Bio block */
@@ -115,13 +105,10 @@
     }
     @media (min-width:900px){ .photo{width:200px;height:200px} }
     .photo img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
-    .name{margin:0 0 6px 0;font-size:28px;line-height:1.1}
-    .role{margin:0 0 8px 0;font-weight:700}
+    .display-name{margin:0 0 6px 0;font-size:28px;line-height:1.1}
     .aff a{white-space:nowrap}
-    .meta{margin-top:8px}
-    .meta b{font-weight:700}
 
-    /* Social icons (SVG in circles) */
+    /* Social / action icons */
     .social-icons{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .icon-btn{
       position:relative; width:46px;height:46px;border-radius:999px;
@@ -178,6 +165,17 @@
       .news-viewport{height:auto}
     }
 
+    /* Toast */
+    .toast{
+      position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
+      transform:translateX(-50%) translateY(8px);
+      background:var(--tooltip-bg);color:#fff;border:1px solid rgba(255,255,255,.08);
+      padding:10px 14px;border-radius:12px;font-size:14px;
+      box-shadow:0 8px 24px rgba(0,0,0,.35);
+      opacity:0;pointer-events:none;transition:opacity .15s ease, transform .15s ease;
+      z-index:60;
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     footer{margin:24px 0;color:var(--muted);font-size:14px}
   </style>
 </head>
@@ -188,7 +186,6 @@
   <header class="nav" role="banner">
     <div class="nav-inner">
       <div class="name">
-        <!--<img src="NY Icon.png" alt="Profile icon for Nitish Yadav" />-->
         <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
       </div>
 
@@ -206,14 +203,14 @@
   <!-- CONTENT -->
   <main id="content" class="container" role="main">
     <div class="flow">
-      <!-- HERO (same gutter as everything else) -->
+      <!-- HERO -->
       <section class="hero-grid">
         <!-- About / Bio -->
         <article class="card" aria-label="Brief bio">
           <div class="bio-head">
             <div class="photo">
               <img
-                src="IMG_0625.jpeg"
+                src="IMG_0625.jpeg?v=1"
                 alt="Portrait of Nitish Yadav"
                 width="200" height="200"
                 loading="eager"
@@ -221,20 +218,30 @@
                 decoding="async">
             </div>
             <div>
-              <h1 class="name">Nitish Yadav</h1>
-              <p class="role">Doctoral Research Scholar</p>
+              <h1 class="display-name">Nitish Yadav</h1>
               <p class="aff">
+                Ph.D Scholar <br>
                 <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE Lab</a> <br>
                 <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Dept. of Computer Science &amp; Engg.</a> <br>
                 <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>
               </p>
-              <div class="meta">
-                <div><b>Email 1:</b> cs23d011@smail.iitm.ac.in</div>
-                <div><b>Email 2:</b> cs23d011@cse.iitm.ac.in</div>
-              </div>
 
-              <!-- Social icons -->
-              <div class="social-icons" aria-label="External profiles">
+              <!-- Action icons -->
+              <div class="social-icons" aria-label="External profiles and actions">
+                <!-- SINGLE Email (smail) -->
+                <button class="icon-btn copy-email"
+                        type="button"
+                        data-email="cs23d011@smail.iitm.ac.in"
+                        data-tip="Copy email"
+                        aria-label="Copy IITM smail email">
+                  <!-- envelope icon -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/>
+                    <path d="M3 8l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="sr-only">Copy cs23d011@smail.iitm.ac.in</span>
+                </button>
+
                 <!-- Google Scholar -->
                 <a class="icon-btn" href="https://scholar.google.com/citations?user=MtQL75IAAAAJ&hl=en"
                    target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar" title="Google Scholar">
@@ -246,7 +253,7 @@
                 </a>
 
                 <!-- GitHub -->
-                <a class="icon-btn" href="https://github.com/ExodusNY"
+                <a class="icon-btn" href="https://github.com/yadavnitishYN"
                    target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub" title="GitHub">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 .5A11.5 11.5 0 0 0 .5 12 11.5 11.5 0 0 0 8.4 22.9c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1.1 1.5 1.1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2 .6 1.6.2 2.9.1 3.2 .8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.9v2.8c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
@@ -277,8 +284,6 @@
                   </svg>
                   <span class="sr-only">LinkedIn</span>
                 </a>
-
-
               </div>
             </div>
           </div>
@@ -306,7 +311,7 @@
         </aside>
       </section>
 
-      <!-- BELOW THE HERO: same width cards thanks to the single flow + shared gutter -->
+      <!-- BELOW THE HERO -->
       <article class="card">
         <h2>Research Interests</h2>
         <p>Automated Formal Verification, Distributed Systems, Model Checking</p>
@@ -320,7 +325,7 @@
             <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">Indian Institute of Technology Madras</a>, 2023–Present
           </li>
           <li style="margin:8px 0">
-            <strong>M.Tech (ICT), Software Systems</strong>, <a href="https://www.daiict.ac.in" target="_blank" rel="noopener">Dhirubhai Ambani Institute of Information &amp Communication Technology</a>, 2019–2021
+            <strong>M.Tech (ICT), Software Systems</strong>, <a href="https://www.daiict.ac.in" target="_blank" rel="noopener">Dhirubhai Ambani Institute of Information &amp; Communication Technology</a>, 2019–2021
           </li>
           <li style="margin:8px 0">
             <strong>B.Tech, Department of Computer Science &amp; Engineering</strong>, <a href="https://jaipur.manipal.edu/" target="_blank" rel="noopener">Manipal University Jaipur</a>, 2014–2018
@@ -341,6 +346,9 @@
     </footer>
   </main>
 
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">Copied</div>
+
   <script>
     (function () {
       const btn  = document.querySelector('.hamburger');
@@ -348,14 +356,38 @@
 
       function closeMenu(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
       function toggleMenu(){ const isOpen = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', String(isOpen)); }
-      btn.addEventListener('click', toggleMenu);
-      menu.addEventListener('click', e => { if (e.target.tagName === 'A') closeMenu(); });
+      if(btn) btn.addEventListener('click', toggleMenu);
+      if(menu){ menu.addEventListener('click', e => { if (e.target.tagName === 'A') closeMenu(); }); }
       document.addEventListener('click', e => { if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); btn.focus(); } });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); btn && btn.focus(); } });
 
       // Last updated stamp
       const lu = document.getElementById('lu');
       if (lu) lu.textContent = new Date().toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+
+      // Copy-to-clipboard for single email icon + toast
+      const toast = document.getElementById('toast');
+      function showToast() {
+        toast.classList.add('show');
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => toast.classList.remove('show'), 1600);
+      }
+      async function copyText(text){
+        try{
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.setAttribute('readonly','');
+            ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          }
+          showToast();
+        }catch(e){ console.warn('Copy failed', e); }
+      }
+      document.querySelectorAll('.copy-email').forEach(el=>{
+        el.addEventListener('click', () => copyText(el.dataset.email));
+      });
     })();
   </script>
 </body>
