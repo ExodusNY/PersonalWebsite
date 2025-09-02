@@ -1,109 +1,321 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Courses</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teaching — Nitish Yadav</title>
+  <meta name="description" content="Courses assisted by Nitish Yadav at IIT Madras and DA-IICT." />
+  <link rel="icon" href="presentation.png" />
+  <style>
+    :root{
+      /* Dark-first (to match your index). Light colors provided below. */
+      --bg:#0b1220;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+
+      /* Multiple surfaces for contrast */
+      --surface-1:#0f172a;    /* main cards */
+      --surface-2:#12233d;    /* alt cards (institution blocks) */
+      --inset:#0b1a31;        /* inner panels (semesters) */
+
+      --border:#1f2a44;
+      --accent:#8ab0ff;
+      --accent-weak:#132647;
+
+      /* Extra accents for odd/even */
+      --even:#3b82f6;  /* blue */
+      --odd:#a78bfa;   /* purple */
+
+      --shadow-lg:0 16px 40px rgba(0,0,0,.35);
+      --shadow-md:0 8px 24px rgba(0,0,0,.25);
+      --r:16px; --rs:12px; --maxw:1100px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f8fafc; --text:#111827; --muted:#6b7280;
+
+        --surface-1:#ffffff;
+        --surface-2:#f5f8ff;   /* very light blue tint */
+        --inset:#f3f5f9;
+
+        --border:#e5e7eb;
+        --accent:#527bbd; --accent-weak:#e8effc;
+
+        --even:#2563eb; --odd:#7c3aed;
+        --shadow-lg:0 16px 40px rgba(0,0,0,.08);
+        --shadow-md:0 8px 24px rgba(0,0,0,.06);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;line-height:1.55}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:var(--maxw);margin:0 auto;padding:16px}
+
+    /* NAV (same style as index with floating mobile menu) */
+    .nav{
+      position:sticky;top:0;z-index:50;background:rgba(15,23,42,.7);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--border)
+    }
+    @media (prefers-color-scheme: light){ .nav{background:rgba(255,255,255,.75)} }
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:10px 16px;gap:12px;position:relative
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+    .menu{display:flex;gap:14px;align-items:center}
+    .menu a{padding:8px 12px;border-radius:10px}
+    .menu a[aria-current="page"]{background:var(--accent-weak);text-decoration:none}
+    .hamburger{
+      display:none;background:none;border:1px solid var(--border);
+      padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)
+    }
+    .hamburger:focus-visible{outline:2px solid var(--accent)}
+    @media (max-width:760px){
+      .hamburger{display:block}
+      .menu{display:none}
+      .menu.open{
+        display:block;position:absolute;right:16px;top:calc(100% + 8px);
+        width:min(260px, calc(100% - 32px));
+        background:var(--surface-1);border:1px solid var(--border);
+        border-radius:14px;box-shadow:var(--shadow-lg);padding:6px;animation:menuIn .18s ease-out;
+      }
+      .menu a{display:block;width:100%;padding:12px;border-radius:10px}
+      .menu a:hover{background:var(--accent-weak);text-decoration:none}
+      .menu a + a{margin-top:2px}
+    }
+    @keyframes menuIn{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+    /* Page heading card */
+    .page-card{
+      background:var(--surface-1);border:1px solid var(--border);
+      border-radius:var(--r);box-shadow:var(--shadow-lg);padding:18px
+    }
+    h1{margin:6px 0 8px 0;font-size:28px}
+    .muted{color:var(--muted)}
+
+    /* Institution blocks alternate surface for contrast */
+    .inst{margin-top:14px;display:flex;flex-direction:column;gap:18px}
+    .inst-block{
+      background:var(--surface-2);border:1px solid var(--border);
+      border-radius:var(--r);padding:16px;box-shadow:var(--shadow-md)
+    }
+    .inst-block h2{
+      margin:0 0 12px 0;font-size:22px;
+      background:linear-gradient(90deg, rgba(255,255,255,.05), transparent);
+      padding:6px 10px;border-radius:10px
+    }
+
+    /* Year grid */
+    .year-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width:900px){ .year-grid{grid-template-columns:repeat(2,1fr)} }
+
+    /* Year cards with pill header and subtle outline */
+    .year-card{
+      background:var(--surface-1);border:1px solid var(--border);
+      border-radius:var(--r);padding:14px;box-shadow:var(--shadow-md);
+      position:relative;overflow:hidden
+    }
+    .year-card::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(1200px 300px at -10% -10%, rgba(138,176,255,0.08), transparent 60%);
+    }
+    .year-card h3{
+      margin:0 0 10px 0;font-size:18px;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;background:rgba(138,176,255,.12);
+      border:1px solid rgba(138,176,255,.25);border-radius:999px
+    }
+
+    /* Semester panels with left accent + inset background */
+    .semester{
+      margin-top:10px;padding:12px;border:1px solid var(--border);
+      border-radius:var(--rs);background:var(--inset);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);
+      position:relative;overflow:hidden
+    }
+    .semester.even{border-left:6px solid var(--even)}
+    .semester.odd {border-left:6px solid var(--odd)}
+    .semester strong{display:inline-block;margin-bottom:6px}
+    .semester:hover{transform:translateY(-1px);transition:transform .15s ease}
+
+    /* Small utility for spacing inside semester */
+    .row{margin:2px 0}
+
+    footer{margin:24px 0;color:var(--muted);font-size:14px}
+  </style>
 </head>
-  <body>
-    <table summary="Table for page layout." id="tlayout">
-      <tr valign="top">
-        <td id="layout-menu"  style="vertical-align: top; height: 100vh; background-color: #f6f6f6; ">   
-          <div class="menu-item"><a href="index.html" >Home</a></div>
-          <div class="menu-item"><a href="teaching.html" class="current">Teaching</a></div>
-          <div class="menu-item"><a href="publication.html">Publications</a></div>
-          <!--<div class="menu-item"><a href="research-projects.html">Fellowships/Projects</a></div>-->
-          <!--<div class="menu-item"><a href="awards.html">Awards</a></div>-->
-          <!--<div class="menu-item"><a href="professional-activities.html">Professional Activities</a></div>-->
-          <div class="menu-item"><a href="CV.pdf" target="_blank">CV</a></div>
-        <td id="layout-content">
-          <div id="toptitle">
-          <h1>Courses Assisted</h1>
-          </div>
+<body>
+  <a href="#content" style="position:absolute;left:-1000px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 
-          <!-- <h2>Teaching Assistanceship at BITS Pilani</h2> -->
-          <h3>Indian Institute of Technology Madras</h3>
-          <div class="teaching-experience">
-            
-            <p></p>
-            <div class="grid-container">
-              <div class="year-box">
-                <h6>2024</h6>
-                <div class="semester">
-                  <strong>Even Semester</strong><br>
-                  <b>Course Title:</b> <a href="https://kartiknagar.github.io/courses/pop-jul2024/">CS2810</a>-Object Oriented Algorithm Implementation and Analysis (Lab)<br>
-                  <b>Instructor(s):</b> <a href="https://www.cse.iitm.ac.in/~skrishnam/index.html">Prof. Krishna Moorthy Sivalingam</a><br>
-                  <b>My Role:</b> Teaching Assistant
+  <!-- HEADER / NAV -->
+  <header class="nav" role="banner">
+    <div class="nav-inner container">
+      <div class="name">
+        <!--<img src="home-button.png" alt="Profile photo of Nitish Yadav" />-->
+        <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
+      </div>
+
+      <button class="hamburger"
+              aria-label="Toggle menu"
+              aria-controls="site-menu"
+              aria-expanded="false">☰</button>
+
+      <nav id="site-menu" class="menu" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="teaching.html" aria-current="page">Teaching</a>
+        <a href="publication.html">Publications</a>
+        <a href="CV.pdf" target="_blank" rel="noopener">CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container" role="main">
+    <section class="page-card" aria-label="Courses Assisted">
+      <h1>Courses Assisted</h1>
+      <p class="muted"></p>
+
+      <div class="inst">
+        <!-- IIT MADRAS (surface-2) -->
+        <div class="inst-block">
+          <h2>Indian Institute of Technology Madras</h2>
+
+          <div class="year-grid">
+            <!-- 2024 -->
+            <div class="year-card">
+              <h3>2024</h3>
+
+              <div class="semester even">
+                <strong>Even Semester</strong>
+                <div class="row"><b>Course Title:</b> CS2810 — Object Oriented Algorithm Implementation and Analysis Design (OOAID)</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://www.cse.iitm.ac.in/~skrishnam/index.html" target="_blank" rel="noopener">
+                    Prof. Krishna Moorthy Sivalingam
+                  </a>
                 </div>
-                <div class="semester">
-                  <strong>Odd Semester</strong><br>
-                  <b>Course Title:</b> CS3100-Paradigms of Programming<br>
-                  <b>Instructor(s):</b> <a href="https://kartiknagar.github.io/">Dr. Kartik Nagar</a><br>
-                  <b>My Role:</b> Teaching Assistant
-                </div>
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
               </div>
 
-              <div class="year-box">
-                <h6>2025</h6>
-                <div class="semester">
-                  <strong>Even Semester</strong><br>
-                  <b>Course Title:</b> CS5030-Automated Program Verification<br>
-                  <b>Instructor(s):</b> <a href="https://kartiknagar.github.io/">Dr. Kartik Nagar</a><br>
-                  <b>My Role:</b> Teaching Assistant
+              <div class="semester odd">
+                <strong>Odd Semester</strong>
+                <div class="row"><b>Course Title:</b> CS3100 — Paradigms of Programming</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a>
                 </div>
-                <div class="semester">
-                  <strong>Odd Semester</strong><br>
-                  <b>Course Title:</b> CS1111-Problem Solving using Computers<br>
-                  <b>Instructor(s):</b> <a href="https://kartiknagar.github.io/">Dr. Kartik Nagar</a><br>
-                  <b>My Role:</b> Lead Teaching Assistant
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
+              </div>
+            </div>
+
+            <!-- 2025 -->
+            <div class="year-card">
+              <h3>2025</h3>
+
+              <div class="semester even">
+                <strong>Even Semester</strong>
+                <div class="row"><b>Course Title:</b> CS5030 — Automated Program Verification (APV)</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a>
                 </div>
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
+              </div>
+
+              <div class="semester odd">
+                <strong>Odd Semester</strong>
+                <div class="row"><b>Course Title:</b> CS1111 — Problem Solving using Computers</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a>
+                </div>
+                <div class="row"><b>My Role:</b> Lead Teaching Assistant</div>
               </div>
             </div>
           </div>
-        
-          <h3>Dhirubhai Ambani Institute of Information and Communication Technology</h3>
-          <p></p>
-          <div class='teaching-experience'> 
-            <div class="grid-container">
-              <div class="year-box">
-                <h6>2019-2020</h6>
-                <div class="semester">
-                  <strong>Odd Semester</strong><br>
-                  <b>Course Title:</b> Database Management System<br>
-                  <b>Instructor(s):</b> <a href="https://www.daiict.ac.in/faculty-details/264">Dr. P. M. Jat</a><br>
-                  <b>My Role:</b> Teaching Assistant
+        </div>
+
+        <!-- DA-IICT (surface-2) -->
+        <div class="inst-block">
+          <h2>Dhirubhai Ambani Institute of Information and Communication Technology</h2>
+
+          <div class="year-grid">
+            <!-- 2019–2020 -->
+            <div class="year-card">
+              <h3>2019–2020</h3>
+
+              <div class="semester odd">
+                <strong>Odd Semester</strong>
+                <div class="row"><b>Course Title:</b> Database Management System</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://www.daiict.ac.in/faculty-details/264" target="_blank" rel="noopener">Dr. P. M. Jat</a>
                 </div>
-                <div class="semester">
-                  <strong>Even Semester</strong><br>
-                  <b>Course Title:</b> Software Engineering<br>
-                  <b>Instructor(s):</b> <a href="https://www.daiict.ac.in/faculty/saurabh-tiwari">Dr. Saurabh Tiwari</a><br>
-                  <b>My Role:</b> Teaching Assistant
-                </div>
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
               </div>
 
-              <div class="year-box">
-                <h6>2020-2021</h6>
-                <div class="semester">
-                  <strong>Odd Semester</strong><br>
-                  <b>Course Title:</b> Database Management System<br>
-                  <b>Instructor(s):</b> <a href="https://www.daiict.ac.in/faculty/minal-bhise">Prof. Minal Bhise</a><br>
-                  <b>My Role:</b> Teaching Assistant
+              <div class="semester even">
+                <strong>Even Semester</strong>
+                <div class="row"><b>Course Title:</b> Software Engineering</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://www.daiict.ac.in/faculty/saurabh-tiwari" target="_blank" rel="noopener">Dr. Saurabh Tiwari</a>
                 </div>
-                <div class="semester">
-                  <strong>Even Semester</strong><br>
-                  <b>Course Title:</b> Software Engineering<br>
-                  <b>Instructor(s):</b> <a href="https://www.daiict.ac.in/faculty/saurabh-tiwari">Dr. Saurabh Tiwari</a><br>
-                  <b>My Role:</b> Teaching Assistant
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
+              </div>
+            </div>
+
+            <!-- 2020–2021 -->
+            <div class="year-card">
+              <h3>2020–2021</h3>
+
+              <div class="semester odd">
+                <strong>Odd Semester</strong>
+                <div class="row"><b>Course Title:</b> Database Management System</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://www.daiict.ac.in/faculty/minal-bhise" target="_blank" rel="noopener">Prof. Minal Bhise</a>
                 </div>
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
+              </div>
+
+              <div class="semester even">
+                <strong>Even Semester</strong>
+                <div class="row"><b>Course Title:</b> Software Engineering</div>
+                <div class="row"><b>Instructor(s):</b>
+                  <a href="https://www.daiict.ac.in/faculty/saurabh-tiwari" target="_blank" rel="noopener">Dr. Saurabh Tiwari</a>
+                </div>
+                <div class="row"><b>My Role:</b> Teaching Assistant</div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
+    <footer class="container" role="contentinfo">
+      Last updated: <span id="lu">—</span>
+    </footer>
+  </main>
 
-        </td>
-      </tr>
-    </table>
-  </body>
+  <script>
+    (function () {
+      const btn  = document.querySelector('.hamburger');
+      const menu = document.getElementById('site-menu');
+
+      function closeMenu() {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      function toggleMenu() {
+        const isOpen = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+      }
+
+      btn.addEventListener('click', toggleMenu);
+      menu.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeMenu(); });
+      document.addEventListener('click', (e) => { if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMenu(); btn.focus(); } });
+
+      const lu = document.getElementById('lu');
+      if (lu) lu.textContent = new Date().toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+    })();
+  </script>
+</body>
 </html>
