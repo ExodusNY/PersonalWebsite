@@ -15,8 +15,6 @@
       --shadow:0 16px 40px rgba(0,0,0,.35);
       --r:16px; --maxw:1100px; --gutter:16px;
       --social-bg:#2a3f70; --tooltip-bg:#111827;
-      /* how much to “shrink” cards on mobile to match the nav look */
-      --mobile-card-inset:12px;
     }
     @media (prefers-color-scheme: light){
       :root{
@@ -33,6 +31,7 @@
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
 
+    /* Shared container (all sections use the same gutter) */
     .container{
       max-width:var(--maxw);
       margin:0 auto;
@@ -42,23 +41,34 @@
     }
 
     /* NAV */
-    .nav{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .nav{position:sticky;top:0;z-index:50;
+      background:rgba(15,23,42,.7);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border)}
     @media (prefers-color-scheme: light){ .nav{background:rgba(255,255,255,.75)} }
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px;position:relative}
+
+    /* NOW the nav row itself reuses .container; only vertical padding here */
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding-top:10px;padding-bottom:10px;position:relative;
+    }
     .name{font-weight:800;font-size:20px}
     .menu{display:flex;gap:14px;align-items:center}
     .menu a{padding:8px 12px;border-radius:10px}
     .menu a[aria-current="page"]{background:var(--accent-weak);text-decoration:none}
-    .hamburger{display:none;background:none;border:1px solid var(--border);padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
+    .hamburger{display:none;background:none;border:1px solid var(--border);
+      padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
     .hamburger:focus-visible{outline:2px solid var(--accent)}
+
     @media (max-width:760px){
       .hamburger{display:block}
       .menu{display:none}
+      /* Anchor dropdown to the inner container’s right edge */
       .menu.open{
         display:block;position:absolute;right:0;top:calc(100% + 8px);
         width:min(260px, 100%);
         background:var(--card);border:1px solid var(--border);
-        border-radius:14px;box-shadow:var(--shadow);padding:6px;animation:menuIn .18s ease-out}
+        border-radius:14px;box-shadow:var(--shadow);padding:6px;animation:menuIn .18s ease-out;
+      }
       .menu a{display:block;width:100%;padding:12px;border-radius:10px}
       .menu a:hover{background:var(--accent-weak);text-decoration:none}
       .menu a + a{margin-top:2px}
@@ -66,19 +76,13 @@
     @keyframes menuIn{from{opacity:0; transform:translateY(-6px) scale(.98)} to{opacity:1; transform:translateY(0) scale(1)}}
 
     /* Cards */
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;width:100%}
+    .card{background:var(--card);border:1px solid var(--border);
+      border-radius:var(--r);box-shadow:var(--shadow);padding:18px;width:100%}
     .card h2{margin:0 0 10px 0;font-size:20px}
 
-    /* This wrapper gives cards a tiny extra inset on small screens */
-    .content-inset{padding-left:0;padding-right:0}
-    @media (max-width:760px){
-      .content-inset{
-        padding-left:var(--mobile-card-inset);
-        padding-right:var(--mobile-card-inset);
-      }
-    }
-
     .flow{display:grid;grid-auto-rows:auto;row-gap:16px}
+
+    /* HERO grid */
     .hero-grid{display:grid;grid-template-columns:1fr;gap:16px;width:100%}
     @media (min-width:900px){ .hero-grid{grid-template-columns:1.2fr .8fr} }
 
@@ -142,6 +146,7 @@
 
   <!-- NAV -->
   <header class="nav" role="banner">
+    <!-- Use the same .container wrapper so left/right gutters match cards -->
     <div class="container nav-inner">
       <div class="name">
         <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
@@ -160,129 +165,136 @@
 
   <!-- CONTENT -->
   <main id="content" class="container" role="main">
-    <!-- NEW: inset wrapper so cards visually match nav width on mobile -->
-    <div class="content-inset">
-      <div class="flow">
-        <!-- HERO -->
-        <section class="hero-grid">
-          <article class="card" aria-label="Brief bio">
-            <div class="bio-head">
-              <div class="photo">
-                <img src="IMG_0625.jpeg?v=1" alt="Portrait of Nitish Yadav" width="200" height="200" loading="eager" fetchpriority="high" decoding="async">
+    <div class="flow">
+      <!-- HERO -->
+      <section class="hero-grid">
+        <article class="card" aria-label="Brief bio">
+          <div class="bio-head">
+            <div class="photo">
+              <img src="IMG_0625.jpeg?v=1" alt="Portrait of Nitish Yadav" width="200" height="200" loading="eager" fetchpriority="high" decoding="async">
+            </div>
+            <div>
+              <h1 class="display-name">Nitish Yadav</h1>
+              <p class="aff">
+                Ph.D Scholar <br>
+                <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE Lab</a> <br>
+                <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Dept. of Computer Science &amp; Engg.</a> <br>
+                <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>
+              </p>
+
+              <!-- Actions -->
+              <div class="social-icons" aria-label="External profiles and actions">
+                <!-- Email copy -->
+                <button class="icon-btn copy-email"
+                  type="button"
+                  data-email="cs23d011@smail.iitm.ac.in"
+                  data-tip="Copy email"
+                  aria-label="Copy IITM smail email">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
+                          fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                    <path d="M3 8l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="sr-only">Copy cs23d011@smail.iitm.ac.in</span>
+                </button>
+
+                <!-- Google Scholar -->
+                <a class="icon-btn" href="https://scholar.google.com/citations?user=MtQL75IAAAAJ&hl=en"
+                   target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar" title="Google Scholar">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M2 9l10-4 10 4-10 4-10-4z"/>
+                    <path d="M7 12v3l5 2 5-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="sr-only">Google Scholar</span>
+                </a>
+
+                <!-- GitHub -->
+                <a class="icon-btn" href="https://github.com/yadavnitishYN"
+                   target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub" title="GitHub">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 .5A11.5 11.5 0 0 0 .5 12 11.5 11.5 0 0 0 8.4 22.9c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1.1 1.5 1.1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2 .6 1.6.2 2.9.1 3.2 .8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.9v2.8c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
+                  </svg>
+                  <span class="sr-only">GitHub</span>
+                </a>
+
+                <!-- ORCID -->
+                <a class="icon-btn" href="https://orcid.org/0009-0008-9802-3417"
+                   target="_blank" rel="noopener" aria-label="ORCID" data-tip="ORCID" title="ORCID">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="7.6" y="8" width="1.8" height="8" rx=".9" />
+                    <circle cx="8.5" cy="6.5" r="1" />
+                    <path d="M12.5 9.7h2.7a2.6 2.6 0 0 1 0 5.2h-2.7v-5.2zm1.8 1.6v2h.9a1 1 0 0 0 0-2h-.9z"/>
+                  </svg>
+                  <span class="sr-only">ORCID</span>
+                </a>
+
+                <!-- LinkedIn -->
+                <a class="icon-btn" href="https://www.linkedin.com/in/nitishyadavny"
+                   target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn" title="LinkedIn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="7" y="10" width="2.2" height="7" rx="1.1"/>
+                    <circle cx="8.1" cy="7.3" r="1.3"/>
+                    <path d="M13.2 10h1.7a2.3 2.3 0 0 1 2.3 2.3V17h-2.1v-3.9c0-.8-.6-1.3-1.3-1.3s-1.3.5-1.3 1.3V17h-2.1v-7h2.8z"/>
+                  </svg>
+                  <span class="sr-only">LinkedIn</span>
+                </a>
               </div>
-              <div>
-                <h1 class="display-name">Nitish Yadav</h1>
-                <p class="aff">
-                  Ph.D Scholar <br>
-                  <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE Lab</a> <br>
-                  <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Dept. of Computer Science &amp; Engg.</a> <br>
-                  <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>
-                </p>
+            </div>
+          </div>
+        </article>
 
-                <div class="social-icons" aria-label="External profiles and actions">
-                  <!-- Email copy -->
-                  <button class="icon-btn copy-email" type="button" data-email="cs23d011@smail.iitm.ac.in" data-tip="Copy email" aria-label="Copy IITM smail email">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                      <path d="M3 8l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="sr-only">Copy cs23d011@smail.iitm.ac.in</span>
-                  </button>
-
-                  <!-- Google Scholar -->
-                  <a class="icon-btn" href="https://scholar.google.com/citations?user=MtQL75IAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar" title="Google Scholar">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M2 9l10-4 10 4-10 4-10-4z"/>
-                      <path d="M7 12v3l5 2 5-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="sr-only">Google Scholar</span>
-                  </a>
-
-                  <!-- GitHub -->
-                  <a class="icon-btn" href="https://github.com/yadavnitishYN" target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub" title="GitHub">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 .5A11.5 11.5 0 0 0 .5 12 11.5 11.5 0 0 0 8.4 22.9c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1.1 1.5 1.1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2 .6 1.6.2 2.9.1 3.2 .8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.9v2.8c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
-                    </svg>
-                    <span class="sr-only">GitHub</span>
-                  </a>
-
-                  <!-- ORCID -->
-                  <a class="icon-btn" href="https://orcid.org/0009-0008-9802-3417" target="_blank" rel="noopener" aria-label="ORCID" data-tip="ORCID" title="ORCID">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
-                      <rect x="7.6" y="8" width="1.8" height="8" rx=".9" />
-                      <circle cx="8.5" cy="6.5" r="1" />
-                      <path d="M12.5 9.7h2.7a2.6 2.6 0 0 1 0 5.2h-2.7v-5.2zm1.8 1.6v2h.9a1 1 0 0 0 0-2h-.9z"/>
-                    </svg>
-                    <span class="sr-only">ORCID</span>
-                  </a>
-
-                  <!-- LinkedIn -->
-                  <a class="icon-btn" href="https://www.linkedin.com/in/nitishyadavny" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn" title="LinkedIn">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="3" y="3" width="18" height="18" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
-                      <rect x="7" y="10" width="2.2" height="7" rx="1.1"/>
-                      <circle cx="8.1" cy="7.3" r="1.3"/>
-                      <path d="M13.2 10h1.7a2.3 2.3 0 0 1 2.3 2.3V17h-2.1v-3.9c0-.8-.6-1.3-1.3-1.3s-1.3.5-1.3 1.3V17h-2.1v-7h2.8z"/>
-                    </svg>
-                    <span class="sr-only">LinkedIn</span>
-                  </a>
+        <!-- News & Updates -->
+        <aside class="card updates" aria-label="News and updates">
+          <h2>News &amp; Updates</h2>
+          <div class="news-viewport" aria-live="polite">
+            <div class="news-track">
+              <div class="news-list">
+                <div class="news-item">
+                  <div class="dot" aria-hidden="true"></div>
+                  <div>Will be updated soon…</div>
+                </div>
+              </div>
+              <div class="news-list" aria-hidden="true">
+                <div class="news-item">
+                  <div class="dot" aria-hidden="true"></div>
+                  <div>Will be updated soon…</div>
                 </div>
               </div>
             </div>
-          </article>
+          </div>
+        </aside>
+      </section>
 
-          <!-- News & Updates -->
-          <aside class="card updates" aria-label="News and updates">
-            <h2>News &amp; Updates</h2>
-            <div class="news-viewport" aria-live="polite">
-              <div class="news-track">
-                <div class="news-list">
-                  <div class="news-item">
-                    <div class="dot" aria-hidden="true"></div>
-                    <div>Will be updated soon…</div>
-                  </div>
-                </div>
-                <div class="news-list" aria-hidden="true">
-                  <div class="news-item">
-                    <div class="dot" aria-hidden="true"></div>
-                    <div>Will be updated soon…</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </section>
+      <!-- BELOW THE HERO -->
+      <article class="card">
+        <h2>Research Interests</h2>
+        <p>Automated Formal Verification, Distributed Systems, Model Checking</p>
+      </article>
 
-        <!-- BELOW THE HERO -->
-        <article class="card">
-          <h2>Research Interests</h2>
-          <p>Automated Formal Verification, Distributed Systems, Model Checking</p>
-        </article>
+      <article class="card">
+        <h2>Education</h2>
+        <ul style="margin:0;padding-left:18px">
+          <li style="margin:8px 0">
+            <strong>Ph.D</strong>, <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a>,
+            <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">Indian Institute of Technology Madras</a>, 2023–Present
+          </li>
+          <li style="margin:8px 0">
+            <strong>M.Tech (ICT), Software Systems</strong>, <a href="https://www.daiict.ac.in" target="_blank" rel="noopener">Dhirubhai Ambani Institute of Information &amp; Communication Technology</a>, 2019–2021
+          </li>
+          <li style="margin:8px 0">
+            <strong>B.Tech, Department of Computer Science &amp; Engineering</strong>, <a href="https://jaipur.manipal.edu/" target="_blank" rel="noopener">Manipal University Jaipur</a>, 2014–2018
+          </li>
+        </ul>
+      </article>
 
-        <article class="card">
-          <h2>Education</h2>
-          <ul style="margin:0;padding-left:18px">
-            <li style="margin:8px 0">
-              <strong>Ph.D</strong>, <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a>,
-              <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">Indian Institute of Technology Madras</a>, 2023–Present
-            </li>
-            <li style="margin:8px 0">
-              <strong>M.Tech (ICT), Software Systems</strong>, <a href="https://www.daiict.ac.in" target="_blank" rel="noopener">Dhirubhai Ambani Institute of Information &amp; Communication Technology</a>, 2019–2021
-            </li>
-            <li style="margin:8px 0">
-              <strong>B.Tech, Department of Computer Science &amp; Engineering</strong>, <a href="https://jaipur.manipal.edu/" target="_blank" rel="noopener">Manipal University Jaipur</a>, 2014–2018
-            </li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h2>Biography</h2>
-          <p style="text-align:justify">
-            I am a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a> at <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>. I am advised by <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/" target="_blank" rel="noopener">Dr. K. C. Sivaramakrishnan</a>, and I am affiliated with the <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE group</a>. I joined the Ph.D. program in January 2023.
-          </p>
-        </article>
-      </div>
+      <article class="card">
+        <h2>Biography</h2>
+        <p style="text-align:justify">
+          I am a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a> at <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>. I am advised by <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/" target="_blank" rel="noopener">Dr. K. C. Sivaramakrishnan</a>, and I am affiliated with the <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE group</a>. I joined the Ph.D. program in January 2023.
+        </p>
+      </article>
     </div>
 
     <footer role="contentinfo" style="margin-top:24px;color:var(--muted);font-size:14px">
