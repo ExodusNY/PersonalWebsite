@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nitish Yadav</title>
-  <meta name="description" content="Nitish Yadav — Ph.D Scholar, IIT Madras. Research in Automated Formal Verification, Distributed Systems, and Model Checking." />
-  <link rel="icon" href="home-button.png" />
-  <!-- Preload hero image so it arrives fast and crisp -->
-  <link rel="preload" as="image" href="IMG_0625.jpeg" />
+  <meta name="description" content="Nitish Yadav — Doctoral Research Scholar, IIT Madras. Research in Automated Formal Verification, Distributed Systems, and Model Checking." />
+  <link rel="icon" href="profilephoto.jpg" />
+  <!-- Preload hero image (cache-busted) -->
+  <link rel="preload" as="image" href="profilephoto6.png?v=2" fetchpriority="high" />
 
   <style>
     :root{
@@ -15,9 +15,12 @@
       --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
       --border:#1f2a44; --accent:#8ab0ff; --accent-weak:#132647;
       --shadow:0 16px 40px rgba(0,0,0,.35);
-      --r:16px; --rs:12px; --maxw:1100px;
+      --r:16px; --maxw:1100px;
 
-      --social-bg:#2a3f70;   /* same circle color for all icons */
+      /* One gutter to rule them all (ensures consistent card width) */
+      --gutter:16px;
+
+      --social-bg:#2a3f70;
       --tooltip-bg:#111827;
     }
     @media (prefers-color-scheme: light){
@@ -30,17 +33,39 @@
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;line-height:1.55}
+    html,body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;
+      line-height:1.55;
+    }
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
-    .container{max-width:var(--maxw);margin:0 auto;padding:16px}
+
+    /* The container manages ALL horizontal padding so every card aligns */
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding-left:max(var(--gutter), env(safe-area-inset-left));
+      padding-right:max(var(--gutter), env(safe-area-inset-right));
+      padding-top:16px;
+      padding-bottom:16px;
+    }
 
     /* NAV */
-    .nav{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.7);
-      backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(15,23,42,.7); backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border)
+    }
     @media (prefers-color-scheme: light){ .nav{background:rgba(255,255,255,.75)} }
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:12px;position:relative}
+    .nav-inner{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding-left:max(var(--gutter), env(safe-area-inset-left));
+      padding-right:max(var(--gutter), env(safe-area-inset-right));
+      padding-top:10px; padding-bottom:10px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;
+    }
     .brand{display:flex;align-items:center;gap:10px;font-weight:700}
     .brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
     .menu{display:flex;gap:14px;align-items:center}
@@ -51,8 +76,9 @@
     @media (max-width:760px){
       .hamburger{display:block}
       .menu{display:none}
-      .menu.open{display:block;position:absolute;right:16px;top:calc(100% + 8px);
-        width:min(260px, calc(100% - 32px));background:var(--card);border:1px solid var(--border);
+      .menu.open{display:block;position:absolute;right:max(var(--gutter), env(safe-area-inset-right));top:calc(100% + 8px);
+        width:min(260px, calc(100% - (var(--gutter)*2)));
+        background:var(--card);border:1px solid var(--border);
         border-radius:14px;box-shadow:var(--shadow);padding:6px;animation:menuIn .18s ease-out}
       .menu a{display:block;width:100%;padding:12px;border-radius:10px}
       .menu a:hover{background:var(--accent-weak);text-decoration:none}
@@ -60,23 +86,34 @@
     }
     @keyframes menuIn{from{opacity:0; transform:translateY(-6px) scale(.98)} to{opacity:1; transform:translateY(0) scale(1)}}
 
-    /* HERO */
-    .hero{margin-top:16px}
-    .hero-grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media (min-width:900px){ .hero-grid{grid-template-columns:1.2fr .8fr} }
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+    /* Cards */
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      padding:18px;
+      width:100%; /* enforce same width for all cards */
+    }
     .card h2{margin:0 0 10px 0;font-size:20px}
+
+    /* A single vertical flow that contains EVERYTHING below the nav.
+       Each child is either a card or a grid that contains cards. */
+    .flow{display:grid;grid-auto-rows:auto;row-gap:16px}
+
+    /* HERO grid (cards inside still get width:100%) */
+    .hero-grid{
+      display:grid;grid-template-columns:1fr;gap:16px;width:100%;
+    }
+    @media (min-width:900px){ .hero-grid{grid-template-columns:1.2fr .8fr} }
 
     /* Bio block */
     .bio-head{display:flex;gap:16px;align-items:flex-start}
-
-    /* Slightly reduced portrait size (was 160/220) */
     .photo{
       width:150px;height:150px;border-radius:14px;overflow:hidden;border:1px solid var(--border);
       flex:0 0 auto;background:#222
     }
     @media (min-width:900px){ .photo{width:200px;height:200px} }
-
     .photo img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
     .name{margin:0 0 6px 0;font-size:28px;line-height:1.1}
     .role{margin:0 0 8px 0;font-weight:700}
@@ -123,7 +160,6 @@
       animation:toCenter 2.0s ease-out forwards; white-space:nowrap;
     }
     @keyframes toCenter{0%{left:12px;transform:translateX(0)}100%{left:50%;transform:translateX(-50%)}}
-
     .news-viewport{
       position:relative; height:220px; overflow:hidden;
       border:1px solid var(--border); border-radius:12px; margin-top:8px;
@@ -142,18 +178,17 @@
       .news-viewport{height:auto}
     }
 
-    .stack{display:flex;flex-direction:column;gap:16px;margin-top:16px}
     footer{margin:24px 0;color:var(--muted);font-size:14px}
   </style>
 </head>
 <body>
   <a href="#content" style="position:absolute;left:-1000px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 
-  <!-- HEADER / NAV -->
+  <!-- NAV -->
   <header class="nav" role="banner">
-    <div class="nav-inner container">
+    <div class="nav-inner">
       <div class="name">
-        <!--<img src="home-button.png" alt="Profile photo of Nitish Yadav" />-->
+        <!--<img src="NY Icon.png" alt="Profile icon for Nitish Yadav" />-->
         <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
       </div>
 
@@ -168,40 +203,39 @@
     </div>
   </header>
 
+  <!-- CONTENT -->
   <main id="content" class="container" role="main">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid">
-        <!-- Left: Brief Bio + Photo -->
+    <div class="flow">
+      <!-- HERO (same gutter as everything else) -->
+      <section class="hero-grid">
+        <!-- About / Bio -->
         <article class="card" aria-label="Brief bio">
           <div class="bio-head">
             <div class="photo">
-              <!-- High quality: eager load + high fetch priority + optional high-DPI srcset -->
               <img
                 src="IMG_0625.jpeg"
-                srcset="IMG_0625.jpeg 1x, IMG_0625.jpeg 2x"
                 alt="Portrait of Nitish Yadav"
+                width="200" height="200"
                 loading="eager"
                 fetchpriority="high"
-                decoding="async"
-                width="200" height="200" />
+                decoding="async">
             </div>
             <div>
               <h1 class="name">Nitish Yadav</h1>
-              <!--<p class="role">Ph.D Scholar</p>-->
+              <p class="role">Doctoral Research Scholar</p>
               <p class="aff">
-                Ph.D Scholar <br>
                 <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE Lab</a> <br>
                 <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Dept. of Computer Science &amp; Engg.</a> <br>
                 <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>
               </p>
               <div class="meta">
-                <div><b>Email 1:</b> <a href="mailto:cs23d011@smail.iitm.ac.in">cs23d011@smail.iitm.ac.in</a></div>
-                <div><b>Email 2:</b> <a href="mailto:cs23d011@cse.iitm.ac.in">cs23d011@cse.iitm.ac.in</a></div>
+                <div><b>Email 1:</b> cs23d011@smail.iitm.ac.in</div>
+                <div><b>Email 2:</b> cs23d011@cse.iitm.ac.in</div>
               </div>
 
-              <!-- SVG ICONS -->
+              <!-- Social icons -->
               <div class="social-icons" aria-label="External profiles">
+                <!-- Google Scholar -->
                 <a class="icon-btn" href="https://scholar.google.com/citations?user=MtQL75IAAAAJ&hl=en"
                    target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar" title="Google Scholar">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -211,7 +245,8 @@
                   <span class="sr-only">Google Scholar</span>
                 </a>
 
-                <a class="icon-btn" href="https://github.com/yadavnitishYN"
+                <!-- GitHub -->
+                <a class="icon-btn" href="https://github.com/ExodusNY"
                    target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub" title="GitHub">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 .5A11.5 11.5 0 0 0 .5 12 11.5 11.5 0 0 0 8.4 22.9c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1.1 1.5 1.1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2 .6 1.6.2 2.9.1 3.2 .8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.9v2.8c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/>
@@ -219,6 +254,7 @@
                   <span class="sr-only">GitHub</span>
                 </a>
 
+                <!-- ORCID -->
                 <a class="icon-btn" href="https://orcid.org/0009-0008-9802-3417"
                    target="_blank" rel="noopener" aria-label="ORCID" data-tip="ORCID" title="ORCID">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -230,6 +266,7 @@
                   <span class="sr-only">ORCID</span>
                 </a>
 
+                <!-- LinkedIn -->
                 <a class="icon-btn" href="https://www.linkedin.com/in/nitishyadavny"
                    target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn" title="LinkedIn">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -240,15 +277,16 @@
                   </svg>
                   <span class="sr-only">LinkedIn</span>
                 </a>
+
+
               </div>
             </div>
           </div>
         </article>
 
-        <!-- Right: News & Updates -->
+        <!-- News & Updates -->
         <aside class="card updates" aria-label="News and updates">
           <h2>News &amp; Updates</h2>
-
           <div class="news-viewport" aria-live="polite">
             <div class="news-track">
               <div class="news-list">
@@ -266,11 +304,9 @@
             </div>
           </div>
         </aside>
-      </div>
-    </section>
+      </section>
 
-    <!-- ALWAYS VERTICAL BELOW -->
-    <section class="stack">
+      <!-- BELOW THE HERO: same width cards thanks to the single flow + shared gutter -->
       <article class="card">
         <h2>Research Interests</h2>
         <p>Automated Formal Verification, Distributed Systems, Model Checking</p>
@@ -294,16 +330,13 @@
 
       <article class="card">
         <h2>Biography</h2>
-        
-
         <p style="text-align:justify">
         I am a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a> at <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>. I am advised by <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/" target="_blank" rel="noopener">Dr. K. C. Sivaramakrishnan</a>, and I am affiliated with the <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE group</a>. I joined the Ph.D. program in January 2023.
         </p>
-
       </article>
-    </section>
+    </div>
 
-    <footer class="container" role="contentinfo">
+    <footer role="contentinfo" style="margin-top:24px;color:var(--muted);font-size:14px">
       Last updated: <span id="lu">—</span>
     </footer>
   </main>
