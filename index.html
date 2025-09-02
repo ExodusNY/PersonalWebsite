@@ -6,8 +6,6 @@
   <title>Nitish Yadav</title>
   <meta name="description" content="Nitish Yadav — Doctoral Research Scholar, IIT Madras. Research in Automated Formal Verification, Distributed Systems, and Model Checking." />
   <link rel="icon" href="home-button.png" />
-
-  <!-- Preload hero image (cache-busted) -->
   <link rel="preload" as="image" href="IMG_0625.jpeg?v=1" fetchpriority="high" />
 
   <style>
@@ -15,10 +13,8 @@
       --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
       --border:#1f2a44; --accent:#8ab0ff; --accent-weak:#132647;
       --shadow:0 16px 40px rgba(0,0,0,.35);
-      --r:16px; --maxw:1100px;
-      --gutter:16px;
-      --social-bg:#2a3f70;
-      --tooltip-bg:#111827;
+      --r:16px; --maxw:1100px; --gutter:16px;
+      --social-bg:#2a3f70; --tooltip-bg:#111827;
     }
     @media (prefers-color-scheme: light){
       :root{
@@ -30,50 +26,49 @@
     }
 
     *{box-sizing:border-box}
-    html,body{
-      margin:0;background:var(--bg);color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;
-      line-height:1.55;
-    }
+    html,body{margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;line-height:1.55}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
 
+    /* Shared container (all sections use the same gutter) */
     .container{
       max-width:var(--maxw);
       margin:0 auto;
       padding-left:max(var(--gutter), env(safe-area-inset-left));
       padding-right:max(var(--gutter), env(safe-area-inset-right));
-      padding-top:16px;
-      padding-bottom:16px;
+      padding-top:16px; padding-bottom:16px;
     }
 
     /* NAV */
-    .nav{
-      position:sticky;top:0;z-index:50;
-      background:rgba(15,23,42,.7); backdrop-filter:blur(10px);
-      border-bottom:1px solid var(--border)
-    }
+    .nav{position:sticky;top:0;z-index:50;
+      background:rgba(15,23,42,.7);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border)}
     @media (prefers-color-scheme: light){ .nav{background:rgba(255,255,255,.75)} }
+
+    /* NOW the nav row itself reuses .container; only vertical padding here */
     .nav-inner{
-      max-width:var(--maxw); margin:0 auto;
-      padding-left:max(var(--gutter), env(safe-area-inset-left));
-      padding-right:max(var(--gutter), env(safe-area-inset-right));
-      padding-top:10px; padding-bottom:10px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding-top:10px;padding-bottom:10px;position:relative;
     }
     .name{font-weight:800;font-size:20px}
     .menu{display:flex;gap:14px;align-items:center}
     .menu a{padding:8px 12px;border-radius:10px}
     .menu a[aria-current="page"]{background:var(--accent-weak);text-decoration:none}
-    .hamburger{display:none;background:none;border:1px solid var(--border);padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
+    .hamburger{display:none;background:none;border:1px solid var(--border);
+      padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
     .hamburger:focus-visible{outline:2px solid var(--accent)}
+
     @media (max-width:760px){
       .hamburger{display:block}
       .menu{display:none}
-      .menu.open{display:block;position:absolute;right:max(var(--gutter), env(safe-area-inset-right));top:calc(100% + 8px);
-        width:min(260px, calc(100% - (var(--gutter)*2)));
+      /* Anchor dropdown to the inner container’s right edge */
+      .menu.open{
+        display:block;position:absolute;right:0;top:calc(100% + 8px);
+        width:min(260px, 100%);
         background:var(--card);border:1px solid var(--border);
-        border-radius:14px;box-shadow:var(--shadow);padding:6px;animation:menuIn .18s ease-out}
+        border-radius:14px;box-shadow:var(--shadow);padding:6px;animation:menuIn .18s ease-out;
+      }
       .menu a{display:block;width:100%;padding:12px;border-radius:10px}
       .menu a:hover{background:var(--accent-weak);text-decoration:none}
       .menu a + a{margin-top:2px}
@@ -81,14 +76,8 @@
     @keyframes menuIn{from{opacity:0; transform:translateY(-6px) scale(.98)} to{opacity:1; transform:translateY(0) scale(1)}}
 
     /* Cards */
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      box-shadow:var(--shadow);
-      padding:18px;
-      width:100%;
-    }
+    .card{background:var(--card);border:1px solid var(--border);
+      border-radius:var(--r);box-shadow:var(--shadow);padding:18px;width:100%}
     .card h2{margin:0 0 10px 0;font-size:20px}
 
     .flow{display:grid;grid-auto-rows:auto;row-gap:16px}
@@ -97,84 +86,57 @@
     .hero-grid{display:grid;grid-template-columns:1fr;gap:16px;width:100%}
     @media (min-width:900px){ .hero-grid{grid-template-columns:1.2fr .8fr} }
 
-    /* Bio block */
+    /* Bio */
     .bio-head{display:flex;gap:16px;align-items:flex-start}
-    .photo{
-      width:150px;height:150px;border-radius:14px;overflow:hidden;border:1px solid var(--border);
-      flex:0 0 auto;background:#222
-    }
+    .photo{width:150px;height:150px;border-radius:14px;overflow:hidden;border:1px solid var(--border);flex:0 0 auto;background:#222}
     @media (min-width:900px){ .photo{width:200px;height:200px} }
     .photo img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
     .display-name{margin:0 0 6px 0;font-size:28px;line-height:1.1}
     .aff a{white-space:nowrap}
 
-    /* Social / action icons */
+    /* Icons */
     .social-icons{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .icon-btn{
-      position:relative; width:46px;height:46px;border-radius:999px;
-      background:var(--social-bg); color:#fff;
-      border:1px solid rgba(0,0,0,.25);
-      box-shadow:0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px rgba(255,255,255,.03);
-      display:inline-flex;align-items:center;justify-content:center;
-      transition:transform .12s ease, box-shadow .12s ease;
-    }
+    .icon-btn{position:relative;width:46px;height:46px;border-radius:999px;background:var(--social-bg);color:#fff;
+      border:1px solid rgba(0,0,0,.25);box-shadow:0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px rgba(255,255,255,.03);
+      display:inline-flex;align-items:center;justify-content:center;transition:transform .12s ease, box-shadow .12s ease}
     .icon-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08)}
     .icon-btn svg{width:22px;height:22px;fill:currentColor}
     .icon-btn[data-tip]::after{
-      content:attr(data-tip);
-      position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);
-      background:var(--tooltip-bg);color:#fff;font-size:12px;line-height:1;
-      padding:6px 8px;border-radius:8px;white-space:nowrap;
-      opacity:0;pointer-events:none;transition:opacity .12s ease, transform .12s ease;
-      border:1px solid rgba(255,255,255,.08);
-    }
+      content:attr(data-tip);position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);
+      background:var(--tooltip-bg);color:#fff;font-size:12px;line-height:1;padding:6px 8px;border-radius:8px;white-space:nowrap;
+      opacity:0;pointer-events:none;transition:opacity .12s ease, transform .12s ease;border:1px solid rgba(255,255,255,.08)}
     .icon-btn[data-tip]::before{
       content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%) rotate(45deg);
       width:10px;height:10px;background:var(--tooltip-bg);opacity:0;transition:opacity .12s ease;
-      border-left:1px solid rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.08);
-    }
+      border-left:1px solid rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.08)}
     .icon-btn:hover::after,.icon-btn:hover::before{opacity:1}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* NEWS & UPDATES */
+    /* News & Updates */
     .updates{position:relative;padding-top:56px}
     .updates h2{
-      position:absolute; top:10px; left:12px;
-      margin:0; font-size:22px; font-weight:800; letter-spacing:.3px;
-      background:linear-gradient(180deg, #ff5a5a 0%, #ff2b2b 40%, #c90909 70%, #8a0303 100%);
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow:0 0 18px rgba(255,35,35,.55), 0 2px 10px rgba(0,0,0,.45);
-      animation:toCenter 2.0s ease-out forwards; white-space:nowrap;
-    }
+      position:absolute;top:10px;left:12px;margin:0;font-size:22px;font-weight:800;letter-spacing:.3px;
+      background:linear-gradient(180deg,#ff5a5a 0%,#ff2b2b 40%,#c90909 70%,#8a0303 100%);
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+      text-shadow:0 0 18px rgba(255,35,35,.55),0 2px 10px rgba(0,0,0,.45);
+      animation:toCenter 2s ease-out forwards;white-space:nowrap}
     @keyframes toCenter{0%{left:12px;transform:translateX(0)}100%{left:50%;transform:translateX(-50%)}}
-    .news-viewport{
-      position:relative; height:220px; overflow:hidden;
-      border:1px solid var(--border); border-radius:12px; margin-top:8px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%, transparent 60%, rgba(0,0,0,0.03));
-    }
-    .news-track{position:absolute; left:0; right:0; display:flex; flex-direction:column; gap:10px; padding:12px 14px; animation:scrollUp 18s linear infinite; will-change:transform}
+    .news-viewport{position:relative;height:220px;overflow:hidden;border:1px solid var(--border);border-radius:12px;margin-top:8px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent 40%,transparent 60%,rgba(0,0,0,0.03))}
+    .news-track{position:absolute;left:0;right:0;display:flex;flex-direction:column;gap:10px;padding:12px 14px;animation:scrollUp 18s linear infinite;will-change:transform}
     .news-list{display:flex;flex-direction:column;gap:10px}
     .news-item{display:flex;gap:8px;align-items:flex-start}
     .news-item .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px;flex:0 0 auto}
     .news-item time{color:var(--muted);font-size:12px;margin-left:auto}
     @keyframes scrollUp{0%{transform:translateY(100%)}100%{transform:translateY(-100%)}}
     .news-viewport:hover .news-track{animation-play-state:paused}
-    @media (prefers-reduced-motion: reduce){
-      .updates h2{animation:none}
-      .news-track{position:static;animation:none}
-      .news-viewport{height:auto}
-    }
+    @media (prefers-reduced-motion:reduce){.updates h2{animation:none}.news-track{position:static;animation:none}.news-viewport{height:auto}}
 
     /* Toast */
-    .toast{
-      position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
-      transform:translateX(-50%) translateY(8px);
-      background:var(--tooltip-bg);color:#fff;border:1px solid rgba(255,255,255,.08);
-      padding:10px 14px;border-radius:12px;font-size:14px;
-      box-shadow:0 8px 24px rgba(0,0,0,.35);
-      opacity:0;pointer-events:none;transition:opacity .15s ease, transform .15s ease;
-      z-index:60;
-    }
+    .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
+      transform:translateX(-50%) translateY(8px);background:var(--tooltip-bg);color:#fff;
+      border:1px solid rgba(255,255,255,.08);padding:10px 14px;border-radius:12px;font-size:14px;
+      box-shadow:0 8px 24px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .15s ease, transform .15s ease;z-index:60}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     footer{margin:24px 0;color:var(--muted);font-size:14px}
   </style>
@@ -184,7 +146,8 @@
 
   <!-- NAV -->
   <header class="nav" role="banner">
-    <div class="nav-inner">
+    <!-- Use the same .container wrapper so left/right gutters match cards -->
+    <div class="container nav-inner">
       <div class="name">
         <span><a href="index.html" style="color:inherit;text-decoration:none"><strong>Nitish Yadav</strong></a></span>
       </div>
@@ -205,17 +168,10 @@
     <div class="flow">
       <!-- HERO -->
       <section class="hero-grid">
-        <!-- About / Bio -->
         <article class="card" aria-label="Brief bio">
           <div class="bio-head">
             <div class="photo">
-              <img
-                src="IMG_0625.jpeg?v=1"
-                alt="Portrait of Nitish Yadav"
-                width="200" height="200"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async">
+              <img src="IMG_0625.jpeg?v=1" alt="Portrait of Nitish Yadav" width="200" height="200" loading="eager" fetchpriority="high" decoding="async">
             </div>
             <div>
               <h1 class="display-name">Nitish Yadav</h1>
@@ -226,18 +182,18 @@
                 <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>
               </p>
 
-              <!-- Action icons -->
+              <!-- Actions -->
               <div class="social-icons" aria-label="External profiles and actions">
-                <!-- SINGLE Email (smail) -->
+                <!-- Email copy -->
                 <button class="icon-btn copy-email"
-                        type="button"
-                        data-email="cs23d011@smail.iitm.ac.in"
-                        data-tip="Copy email"
-                        aria-label="Copy IITM smail email">
-                  <!-- envelope icon -->
+                  type="button"
+                  data-email="cs23d011@smail.iitm.ac.in"
+                  data-tip="Copy email"
+                  aria-label="Copy IITM smail email">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M3 6h18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/>
-                    <path d="M3 8l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
+                          fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                    <path d="M3 8l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   <span class="sr-only">Copy cs23d011@smail.iitm.ac.in</span>
                 </button>
@@ -336,7 +292,7 @@
       <article class="card">
         <h2>Biography</h2>
         <p style="text-align:justify">
-        I am a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a> at <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>. I am advised by <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/" target="_blank" rel="noopener">Dr. K. C. Sivaramakrishnan</a>, and I am affiliated with the <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE group</a>. I joined the Ph.D. program in January 2023.
+          I am a Ph.D. candidate in the <a href="https://www.cse.iitm.ac.in/" target="_blank" rel="noopener">Department of Computer Science &amp; Engineering</a> at <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a>. I am advised by <a href="https://kartiknagar.github.io/" target="_blank" rel="noopener">Dr. Kartik Nagar</a> and <a href="https://kcsrk.info/" target="_blank" rel="noopener">Dr. K. C. Sivaramakrishnan</a>, and I am affiliated with the <a href="https://pace.cse.iitm.ac.in/" target="_blank" rel="noopener">PACE group</a>. I joined the Ph.D. program in January 2023.
         </p>
       </article>
     </div>
@@ -361,32 +317,24 @@
       document.addEventListener('click', e => { if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu(); });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); btn && btn.focus(); } });
 
-      // Last updated stamp
       const lu = document.getElementById('lu');
       if (lu) lu.textContent = new Date().toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
 
-      // Copy-to-clipboard for single email icon + toast
+      // Copy-to-clipboard for email
       const toast = document.getElementById('toast');
-      function showToast() {
-        toast.classList.add('show');
-        clearTimeout(showToast._t);
-        showToast._t = setTimeout(() => toast.classList.remove('show'), 1600);
-      }
+      function showToast(){ toast.classList.add('show'); clearTimeout(showToast._t);
+        showToast._t = setTimeout(()=>toast.classList.remove('show'),1600); }
       async function copyText(text){
         try{
-          if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(text);
-          } else {
-            const ta = document.createElement('textarea');
-            ta.value = text; ta.setAttribute('readonly','');
+          if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); }
+          else{ const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly','');
             ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
-            ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-          }
+            ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
           showToast();
         }catch(e){ console.warn('Copy failed', e); }
       }
       document.querySelectorAll('.copy-email').forEach(el=>{
-        el.addEventListener('click', () => copyText(el.dataset.email));
+        el.addEventListener('click', ()=>copyText(el.dataset.email));
       });
     })();
   </script>
